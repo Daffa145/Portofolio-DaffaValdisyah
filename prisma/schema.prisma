@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      String   @default("ADMIN")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Profile {
+  id                 String   @id @default("default-profile")
+  fullName           String   @default("Alex Pratama")
+  title              String   @default("Senior Full-Stack & Cloud Engineer")
+  tagline            String   @default("Building scalable, high-performance web experiences with modern architecture.")
+  bio                String   @default("Passionate Software Engineer with 5+ years of experience specializing in Next.js, React, Node.js, and Cloud Distributed Systems. I craft resilient, user-centric web applications with obsessive attention to UI/UX detail and clean code.")
+  aboutStory         String   @default("I started coding when I was 16, curious about how the web connects people. Today, I lead frontend and backend architectures for high-traffic platforms, optimizing performance, scalability, and developer experience.")
+  avatarUrl          String   @default("https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80")
+  resumeUrl          String   @default("#")
+  location           String   @default("Jakarta, Indonesia")
+  email              String   @default("alex.pratama.dev@gmail.com")
+  phone              String   @default("+62 812-3456-7890")
+  githubUrl          String   @default("https://github.com")
+  linkedinUrl        String   @default("https://linkedin.com")
+  twitterUrl         String   @default("https://twitter.com")
+  instagramUrl       String   @default("https://instagram.com")
+  availableForWork   Boolean  @default(true)
+  yearsOfExperience  Int      @default(5)
+  completedProjects  Int      @default(38)
+  satisfiedClients   Int      @default(24)
+  codeHours          Int      @default(4500)
+  updatedAt          DateTime @updatedAt
+}
+
+model Skill {
+  id        String   @id @default(cuid())
+  name      String
+  category  String   // Frontend, Backend, Database, Cloud & DevOps, Tools
+  icon      String   // Lucide icon name or tech key
+  level     Int      @default(90) // 1 - 100
+  featured  Boolean  @default(true)
+  isActive  Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  tagline     String
+  description String
+  imageUrl    String
+  demoUrl     String   @default("")
+  githubUrl   String   @default("")
+  techStack   String   // JSON string array e.g. ["Next.js", "TypeScript", "Tailwind", "PostgreSQL"]
+  category    String   @default("Fullstack") // Fullstack, Frontend, Backend, Mobile, AI/Tools
+  featured    Boolean  @default(true)
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Experience {
+  id           String   @id @default(cuid())
+  role         String
+  company      String
+  location     String   @default("Remote")
+  type         String   @default("Full-time") // Full-time, Freelance, Contract
+  startDate    String
+  endDate      String   @default("Present")
+  isCurrent    Boolean  @default(false)
+  isActive     Boolean  @default(true)
+  description  String
+  technologies String   @default("[]") // JSON string array
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+}
+
+model Education {
+  id          String   @id @default(cuid())
+  title       String
+  institution String
+  year        String
+  description String   @default("")
+  isActive    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  company   String
+  avatarUrl String
+  content   String
+  rating    Int      @default(5)
+  isActive  Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  subject   String   @default("General Inquiry")
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
